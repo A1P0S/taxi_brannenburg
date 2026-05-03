@@ -138,15 +138,18 @@
       const payload = {};
       data.forEach((v, k) => { payload[k] = v; });
 
-      // In production, an endpoint or email service would receive this.
-      // For now we display a success message and offer a phone call.
       const success = bookingForm.querySelector('.form-success');
       if (success) {
         success.classList.add('show');
         success.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
       bookingForm.reset();
-      console.log('Buchungsanfrage:', payload);
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
     });
   }
 
@@ -155,12 +158,22 @@
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const data = new FormData(contactForm);
+      const payload = {};
+      data.forEach((v, k) => { payload[k] = v; });
+
       const success = contactForm.querySelector('.form-success');
       if (success) {
         success.classList.add('show');
         success.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
       contactForm.reset();
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
     });
   }
 
