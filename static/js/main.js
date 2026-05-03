@@ -184,4 +184,13 @@
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset() + 30);
     datetimeInput.min = now.toISOString().slice(0, 16);
   }
+
+  // ===== Cookie Consent =====
+  const banner = document.querySelector('#cookie-banner');
+  if (banner && !localStorage.getItem('cookie-consent')) {
+    banner.show();
+    banner.addEventListener('close', () => {
+      localStorage.setItem('cookie-consent', 'accepted');
+    });
+  }
 })();
