@@ -1921,7 +1921,7 @@ p {
   /* Service visuals */
   /* CTA */
   .cta-section {
-    background: #000000;
+    background: linear-gradient(180deg, var(--color-bg) 0%, #000000 100%);
     color: var(--color-fg);
   }
 
