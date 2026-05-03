@@ -48,6 +48,18 @@
     };
   };
 
+  // ===== Parallax hero logo =====
+  const logo = document.querySelector('.hero-logo');
+  let ticking = false;
+
+  const updateParallax = () => {
+    if (!logo) return;
+    const scrollY = window.scrollY;
+    const speed = 0.35;
+    logo.style.backgroundPositionY = `calc(55% + ${scrollY * speed}px)`;
+    ticking = false;
+  };
+
   const onScroll = () => {
     if (!header) return;
     const c = getHeaderColors();
