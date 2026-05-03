@@ -473,7 +473,7 @@ p {
 
 .drawer-footer {
   padding: var(--space-6);
-  border-top: 1px solid var(--color-line-soft);
+  border-top: 2px solid var(--color-accent);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
