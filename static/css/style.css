@@ -454,21 +454,22 @@ p {
 }
 
 .drawer-nav a {
-  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--space-6);
   font-size: 1.125rem;
   font-weight: 500;
   color: var(--color-fg);
   border-radius: var(--r-md);
-  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
-  border-left: 3px solid transparent;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
 }
 
-.drawer-nav a:hover, .drawer-nav a.active {
+.drawer-nav a:hover {
   background: var(--color-bg-alt);
 }
 
 .drawer-nav a.active {
-  border-left-color: var(--color-accent);
+  background: rgba(244, 196, 48, 0.08);
+  color: var(--color-accent-dark);
+  font-weight: 600;
 }
 
 .drawer-footer {
