@@ -895,6 +895,18 @@ p {
   overflow: hidden;
 }
 
+.cta-section::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
+  pointer-events: none;
+  z-index: 1;
+}
+
 .cta-section::before {
   content: '';
   position: absolute;
@@ -1910,6 +1922,10 @@ p {
   .cta-section {
     background: #000000;
     color: var(--color-fg);
+  }
+
+  .cta-section::after {
+    background: linear-gradient(to bottom, transparent, #000000);
   }
 
   .cta-content h2 {
