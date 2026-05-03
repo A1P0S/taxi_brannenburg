@@ -40,11 +40,11 @@
     const isDark = darkQuery.matches;
     return {
       scrolled: isDark
-        ? 'rgba(10, 10, 10, 0.94)'
-        : 'rgba(255, 255, 255, 0.92)',
+        ? 'rgba(20, 20, 20, 0.92)'
+        : 'rgba(250, 250, 250, 0.92)',
       top: isDark
-        ? 'rgba(10, 10, 10, 0.72)'
-        : 'rgba(255, 255, 255, 0.72)'
+        ? 'rgba(20, 20, 20, 0.85)'
+        : 'rgba(250, 250, 250, 0.85)'
     };
   };
 
