@@ -710,7 +710,7 @@ p {
 .section-header::after {
   content: '';
   display: block;
-  width: 32px;
+  width: 40px;
   height: 3px;
   background: var(--color-accent);
   border-radius: 2px;
@@ -1164,7 +1164,7 @@ p {
 
 .fleet-image {
   aspect-ratio: 16/10;
-  background: var(--color-bg-alt);
+  background: linear-gradient(135deg, rgba(244, 196, 48, 0.04), var(--color-bg-alt) 50%);
   display: grid;
   place-items: center;
   position: relative;
@@ -1287,7 +1287,7 @@ p {
   transition: color 0.2s var(--ease);
 }
 
-.location-card .map-link:hover { color: var(--color-fg); }
+.location-card .map-link:hover { color: var(--color-accent-dark); }
 
 /* === FAQ / ACCORDION === */
 .faq {
@@ -1442,7 +1442,7 @@ p {
   transition: color 0.2s var(--ease);
 }
 
-.footer-col ul a:hover { color: var(--color-fg); }
+.footer-col ul a:hover { color: var(--color-accent-dark); }
 
 .footer-brand {
   display: flex;
@@ -1635,15 +1635,17 @@ p {
   grid-template-columns: 1fr;
   gap: var(--space-4);
   margin-top: var(--space-10);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
-@media (min-width: 600px) { .hours-grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 900px) { .hours-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
 .hours-card {
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-line-soft);
   border-radius: var(--r-md);
   padding: var(--space-6);
   transition: border-color 0.2s, transform 0.2s;
+  border-left: 3px solid var(--color-accent);
 }
 .hours-card:hover {
   border-color: var(--color-fg);
