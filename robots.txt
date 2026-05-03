@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /impressum.html
+
+Sitemap: https://www.taxi-brannenburg.de/sitemap.xml
