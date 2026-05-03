@@ -2113,8 +2113,8 @@ p {
   }
 
   .nav-phone {
-    background: var(--color-fg);
-    color: var(--color-bg);
+    background: var(--color-accent);
+    color: var(--color-bg-dark);
   }
 
   .page-header {
