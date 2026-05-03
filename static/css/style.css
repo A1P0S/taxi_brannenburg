@@ -234,7 +234,7 @@ p {
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 2px solid var(--color-accent);
   transition: background 0.3s var(--ease);
 }
 
@@ -1852,7 +1852,6 @@ p {
   /* Header */
   .site-header {
     background: rgba(10, 10, 10, 0.72);
-    border-bottom-color: rgba(255, 255, 255, 0.06);
   }
 
   /* Hero */

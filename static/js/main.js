@@ -44,26 +44,8 @@
         : 'rgba(255, 255, 255, 0.92)',
       top: isDark
         ? 'rgba(10, 10, 10, 0.72)'
-        : 'rgba(255, 255, 255, 0.72)',
-      borderScrolled: isDark
-        ? 'rgba(255, 255, 255, 0.08)'
-        : 'rgba(0, 0, 0, 0.08)',
-      borderTop: isDark
-        ? 'rgba(255, 255, 255, 0.06)'
-        : 'rgba(0, 0, 0, 0.06)'
+        : 'rgba(255, 255, 255, 0.72)'
     };
-  };
-
-  // ===== Parallax hero logo =====
-  const logo = document.querySelector('.hero-logo');
-  let ticking = false;
-
-  const updateParallax = () => {
-    if (!logo) return;
-    const scrollY = window.scrollY;
-    const speed = 0.35;
-    logo.style.backgroundPositionY = `calc(55% + ${scrollY * speed}px)`;
-    ticking = false;
   };
 
   const onScroll = () => {
@@ -71,10 +53,8 @@
     const c = getHeaderColors();
     if (window.scrollY > 8) {
       header.style.background = c.scrolled;
-      header.style.borderBottomColor = c.borderScrolled;
     } else {
       header.style.background = c.top;
-      header.style.borderBottomColor = c.borderTop;
     }
     if (!ticking) {
       requestAnimationFrame(updateParallax);
