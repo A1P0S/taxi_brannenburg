@@ -433,7 +433,7 @@ p {
   align-items: center;
   justify-content: space-between;
   padding: var(--space-6);
-  border-bottom: 1px solid var(--color-line-soft);
+  border-bottom: 2px solid var(--color-accent);
 }
 
 .drawer-close {
