@@ -1,0 +1,29 @@
+{
+  "name": "Taxi Brannenburg",
+  "short_name": "Taxi",
+  "description": "Taxi Brannenburg im Inntal - rund um die Uhr erreichbar.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "icons": [
+    {
+      "src": "/static/images/favicon.png?v=4",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/images/logo.png",
+      "sizes": "1500x1500",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
