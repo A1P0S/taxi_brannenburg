@@ -15,11 +15,14 @@
   const openDrawer = () => {
     drawer?.classList.add('open');
     drawerOverlay?.classList.add('open');
+    menuToggle?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
+    drawerClose?.focus();
   };
   const closeDrawer = () => {
     drawer?.classList.remove('open');
     drawerOverlay?.classList.remove('open');
+    menuToggle?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   };
 
@@ -100,6 +103,7 @@
     const q = item.querySelector('.faq-q');
     const a = item.querySelector('.faq-a');
     if (!q || !a) return;
+    q.setAttribute('aria-expanded', 'false');
 
     q.addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
@@ -107,15 +111,19 @@
       item.parentElement?.querySelectorAll('.faq-item.open').forEach((s) => {
         if (s !== item) {
           s.classList.remove('open');
+          const sq = s.querySelector('.faq-q');
           const sa = s.querySelector('.faq-a');
+          if (sq) sq.setAttribute('aria-expanded', 'false');
           if (sa) sa.style.maxHeight = '0px';
         }
       });
       if (isOpen) {
         item.classList.remove('open');
+        q.setAttribute('aria-expanded', 'false');
         a.style.maxHeight = '0px';
       } else {
         item.classList.add('open');
+        q.setAttribute('aria-expanded', 'true');
         a.style.maxHeight = a.scrollHeight + 'px';
       }
     });
@@ -145,6 +153,8 @@
 
     if (!error.classList.contains('form-error')) {
       error.className = 'form-error';
+      error.setAttribute('role', 'alert');
+      error.setAttribute('aria-live', 'polite');
       success?.insertAdjacentElement('afterend', error);
     }
 
@@ -152,6 +162,8 @@
     const isError = type === 'error' && text;
 
     if (success) {
+      success.setAttribute('role', 'status');
+      success.setAttribute('aria-live', 'polite');
       success.classList.toggle('show', isSuccess);
       success.hidden = !isSuccess;
     }
@@ -176,6 +188,7 @@
 
       setFormSending(form, true);
       showFormMessage(form, 'idle');
+      let sent = false;
 
       try {
         const response = await fetch('/api/contact', {
@@ -188,6 +201,15 @@
 
         form.reset();
         showFormMessage(form, 'success', '');
+        sent = true;
+        const submit = form.querySelector('button[type="submit"]');
+        if (submit) {
+          submit.disabled = false;
+          submit.textContent = 'Gesendet';
+          window.setTimeout(() => {
+            submit.textContent = submit.dataset.originalText || 'Senden';
+          }, 2200);
+        }
       } catch (error) {
         showFormMessage(
           form,
@@ -195,7 +217,9 @@
           'Die Anfrage konnte nicht gesendet werden. Bitte rufen Sie uns direkt unter 08035 907813 an.'
         );
       } finally {
-        setFormSending(form, false);
+        if (!sent) {
+          setFormSending(form, false);
+        }
       }
     });
   };
