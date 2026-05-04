@@ -1104,6 +1104,24 @@ p {
 
 .form-success.show { display: block; }
 
+.form-error {
+  padding: var(--space-6);
+  background: rgba(215, 0, 21, 0.08);
+  border: 1px solid rgba(215, 0, 21, 0.2);
+  border-radius: var(--r-md);
+  color: var(--color-danger);
+  font-size: 0.9375rem;
+  display: none;
+}
+
+.form-error.show { display: block; }
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+  transform: none;
+}
+
 /* === PRICING / TARIFF === */
 .tariff-table {
   background: var(--color-bg);
@@ -1966,6 +1984,11 @@ p {
   .form-success {
     background: rgba(48, 209, 88, 0.1);
     border-color: rgba(48, 209, 88, 0.2);
+  }
+
+  .form-error {
+    background: rgba(255, 69, 58, 0.1);
+    border-color: rgba(255, 69, 58, 0.24);
   }
 
   /* Footer */

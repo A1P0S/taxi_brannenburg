@@ -121,53 +121,87 @@
     });
   });
 
-  // ===== Booking Form =====
-  const bookingForm = document.querySelector('#booking-form');
-  if (bookingForm) {
-    bookingForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const data = new FormData(bookingForm);
-      const payload = {};
-      data.forEach((v, k) => { payload[k] = v; });
-
-      const success = bookingForm.querySelector('.form-success');
-      if (success) {
-        success.classList.add('show');
-        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-      bookingForm.reset();
-
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).catch(() => {});
+  const formToPayload = (form) => {
+    const payload = {};
+    new FormData(form).forEach((value, key) => {
+      payload[key] = value;
     });
-  }
+    return payload;
+  };
 
-  // ===== Contact Form =====
-  const contactForm = document.querySelector('#contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+  const setFormSending = (form, isSending) => {
+    const submit = form.querySelector('button[type="submit"]');
+    if (!submit) return;
+    submit.disabled = isSending;
+    if (!submit.dataset.originalText) {
+      submit.dataset.originalText = submit.textContent;
+    }
+    submit.textContent = isSending ? 'Wird gesendet...' : submit.dataset.originalText;
+  };
+
+  const showFormMessage = (form, type, text = '') => {
+    const success = form.querySelector('.form-success');
+    const error = form.querySelector('.form-error') || document.createElement('div');
+
+    if (!error.classList.contains('form-error')) {
+      error.className = 'form-error';
+      success?.insertAdjacentElement('afterend', error);
+    }
+
+    const isSuccess = type === 'success';
+    const isError = type === 'error' && text;
+
+    if (success) {
+      success.classList.toggle('show', isSuccess);
+      success.hidden = !isSuccess;
+    }
+
+    error.classList.toggle('show', !!isError);
+    error.textContent = isError ? text : '';
+
+    if (!isSuccess && !isError) return;
+
+    const target = isSuccess ? success : error;
+    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  const bindAjaxForm = (form) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const data = new FormData(contactForm);
-      const payload = {};
-      data.forEach((v, k) => { payload[k] = v; });
 
-      const success = contactForm.querySelector('.form-success');
-      if (success) {
-        success.classList.add('show');
-        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
       }
-      contactForm.reset();
 
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).catch(() => {});
+      setFormSending(form, true);
+      showFormMessage(form, 'idle');
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formToPayload(form))
+        });
+
+        if (!response.ok) throw new Error('Request failed');
+
+        form.reset();
+        showFormMessage(form, 'success', '');
+      } catch (error) {
+        showFormMessage(
+          form,
+          'error',
+          'Die Anfrage konnte nicht gesendet werden. Bitte rufen Sie uns direkt unter 08035 907813 an.'
+        );
+      } finally {
+        setFormSending(form, false);
+      }
     });
-  }
+  };
+
+  // ===== Forms =====
+  document.querySelectorAll('#booking-form, #contact-form').forEach(bindAjaxForm);
 
   // ===== Set min datetime for booking =====
   const datetimeInput = document.querySelector('input[type="datetime-local"]');
