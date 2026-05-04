@@ -45,7 +45,7 @@ const handler = async (req, res) => {
         method: 'POST',
         headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: `Taxi Brannenburg <noreply@${process.env.RESEND_DOMAIN || 'taxi-brannenburg.de'}>`,
+          from: `Taxi Brannenburg <noreply@${process.env.RESEND_DOMAIN || 'taxi-brannenburg.com'}>`,
           to: process.env.NOTIFY_EMAIL || 'info@taxi-raubling.de',
           subject,
           text
