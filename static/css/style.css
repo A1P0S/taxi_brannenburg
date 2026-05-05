@@ -1200,6 +1200,13 @@ p {
   transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
 }
 
+.fleet-image .fleet-vehicle-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+}
+
 .fleet-card:hover .fleet-vehicle {
   opacity: 1;
   transform: scale(1.04);
