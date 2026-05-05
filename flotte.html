@@ -123,7 +123,10 @@
         <article class="fleet-card">
           <div class="fleet-image">
             <span class="badge">Komfort</span>
-            <img class="fleet-vehicle fleet-vehicle-photo" src="static/images/fleet/fleet-eclass-photo.jpg" alt="Mercedes-Benz E-Klasse Taxi">
+            <picture class="fleet-vehicle fleet-vehicle-photo">
+              <source srcset="static/images/fleet/fleet-eclass-photo.jpg" media="(prefers-color-scheme: dark)">
+              <img src="static/images/fleet/fleet-eclass-photo-light.jpg" alt="Mercedes-Benz E-Klasse Taxi">
+            </picture>
           </div>
           <div class="fleet-body">
             <h3>Mercedes-Benz E-Klasse</h3>
