@@ -1177,7 +1177,7 @@ p {
 
 .fleet-image {
   aspect-ratio: 16/10;
-  background: linear-gradient(135deg, rgba(244, 196, 48, 0.04), var(--color-bg-alt) 50%);
+  background: linear-gradient(135deg, rgba(244, 196, 48, 0.03), var(--color-bg-alt) 54%);
   display: grid;
   place-items: center;
   position: relative;
@@ -1192,10 +1192,10 @@ p {
 }
 
 .fleet-image .fleet-vehicle {
-  width: 76%;
-  height: 72%;
+  width: 70%;
+  height: 68%;
   object-fit: contain;
-  opacity: 0.92;
+  opacity: 0.88;
   overflow: visible;
   transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
 }
