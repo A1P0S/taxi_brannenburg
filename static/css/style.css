@@ -1088,7 +1088,7 @@ p {
 
 .datetime-picker-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-3);
 }
 
@@ -1103,8 +1103,12 @@ p {
 }
 
 .datetime-picker-grid input {
+  display: block;
+  appearance: none;
+  -webkit-appearance: none;
   box-sizing: border-box;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
   padding: 13px 12px;
   border: 1px solid var(--color-line);
@@ -1112,6 +1116,7 @@ p {
   background: var(--color-bg);
   color: var(--color-fg);
   font: inherit;
+  text-align: left;
 }
 
 .datetime-picker-actions {
@@ -1122,10 +1127,6 @@ p {
 }
 
 @media (max-width: 420px) {
-  .datetime-picker-grid {
-    grid-template-columns: 1fr;
-  }
-
   .datetime-picker-actions {
     flex-direction: column-reverse;
   }
