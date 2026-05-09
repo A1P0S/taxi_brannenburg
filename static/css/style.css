@@ -943,7 +943,7 @@ p {
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-4);
 }
 
@@ -955,6 +955,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0;
 }
 
 .form-group label {
@@ -974,6 +975,8 @@ p {
 .form-group input,
 .form-group select,
 .form-group textarea {
+  box-sizing: border-box;
+  min-width: 0;
   padding: 14px 16px;
   border: 1px solid var(--color-line);
   border-radius: var(--r-md);
@@ -983,6 +986,16 @@ p {
   font-family: inherit;
   transition: all 0.2s var(--ease);
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  .form-group input[type="date"],
+  .form-group input[type="time"],
+  .form-group input[type="datetime-local"] {
+    font-size: 0.875rem;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 }
 
 .form-group input::placeholder,
