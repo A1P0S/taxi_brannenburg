@@ -133,17 +133,9 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="date">Abholdatum <span class="required">*</span></label>
-            <input type="date" id="date" name="date" required>
+            <label for="datetime">Abholzeit <span class="required">*</span></label>
+            <input type="text" id="datetime" name="datetime" class="datetime-trigger" placeholder="Datum und Uhrzeit wählen" readonly required aria-haspopup="dialog" aria-controls="datetime-picker">
           </div>
-          <div class="form-group">
-            <label for="time">Uhrzeit <span class="required">*</span></label>
-            <input type="time" id="time" name="time" required>
-            <input type="hidden" id="datetime" name="datetime">
-          </div>
-        </div>
-
-        <div class="form-row">
           <div class="form-group">
             <label for="personen">Personen</label>
             <select id="personen" name="personen">
@@ -193,6 +185,29 @@
           <a href="tel:+498035907813" class="btn btn-ghost btn-large">Lieber anrufen</a>
         </div>
       </form>
+
+      <dialog class="datetime-picker" id="datetime-picker" aria-labelledby="datetime-picker-title">
+        <form method="dialog" class="datetime-picker-panel">
+          <div class="datetime-picker-head">
+            <strong id="datetime-picker-title">Abholzeit wählen</strong>
+            <button type="button" class="datetime-picker-close" aria-label="Schließen">×</button>
+          </div>
+          <div class="datetime-picker-grid">
+            <label>
+              <span>Datum</span>
+              <input type="date" id="pickup-date">
+            </label>
+            <label>
+              <span>Uhrzeit</span>
+              <input type="time" id="pickup-time">
+            </label>
+          </div>
+          <div class="datetime-picker-actions">
+            <button type="button" class="btn btn-ghost datetime-picker-cancel">Abbrechen</button>
+            <button type="button" class="btn btn-primary datetime-picker-apply">Übernehmen</button>
+          </div>
+        </form>
+      </dialog>
 
     </div>
   </section>

@@ -974,7 +974,8 @@ p {
 
 .form-group input,
 .form-group select,
-.form-group textarea {
+.form-group textarea,
+.datetime-trigger {
   box-sizing: border-box;
   min-width: 0;
   padding: 14px 16px;
@@ -988,13 +989,19 @@ p {
   width: 100%;
 }
 
-@media (max-width: 600px) {
-  .form-group input[type="date"],
-  .form-group input[type="time"] {
-    font-size: 0.875rem;
-    padding-left: 12px;
-    padding-right: 12px;
-  }
+.datetime-trigger {
+  text-align: left;
+  cursor: pointer;
+  -webkit-text-fill-color: currentColor;
+}
+
+.datetime-trigger::placeholder {
+  color: var(--color-muted-soft);
+  opacity: 1;
+}
+
+.datetime-trigger.has-value {
+  color: var(--color-fg);
 }
 
 .form-group input::placeholder,
@@ -1022,10 +1029,110 @@ p {
 
 .form-group input:focus,
 .form-group select:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.datetime-trigger:focus {
   outline: none;
   border-color: var(--color-accent);
   box-shadow: 0 0 0 4px rgba(244, 196, 48, 0.12);
+}
+
+.datetime-picker {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-line-soft);
+  border-radius: var(--r-lg);
+  background: var(--color-bg);
+  color: var(--color-fg);
+  box-shadow: var(--shadow-xl);
+}
+
+.datetime-picker::backdrop {
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.datetime-picker-panel {
+  padding: var(--space-5);
+}
+
+.datetime-picker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.datetime-picker-head strong {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.datetime-picker-close {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  color: var(--color-fg);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.datetime-picker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.datetime-picker-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-fg-soft);
+}
+
+.datetime-picker-grid input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 13px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--r-md);
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font: inherit;
+}
+
+.datetime-picker-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+@media (max-width: 420px) {
+  .datetime-picker-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .datetime-picker-actions {
+    flex-direction: column-reverse;
+  }
+
+  .datetime-picker-actions .btn {
+    width: 100%;
+  }
 }
 
 .form-group textarea {

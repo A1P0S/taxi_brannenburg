@@ -134,9 +134,6 @@
     new FormData(form).forEach((value, key) => {
       payload[key] = value;
     });
-    if (payload.date && payload.time) {
-      payload.datetime = `${payload.date} ${payload.time}`;
-    }
     return payload;
   };
 
@@ -184,6 +181,13 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      const pickupField = form.querySelector('#datetime');
+      if (pickupField && !pickupField.value.trim()) {
+        showFormMessage(form, 'error', 'Bitte wählen Sie eine Abholzeit aus.');
+        pickupField.focus();
+        return;
+      }
+
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
@@ -203,6 +207,7 @@
         if (!response.ok) throw new Error('Request failed');
 
         form.reset();
+        form.querySelector('.datetime-trigger')?.classList.remove('has-value');
         showFormMessage(form, 'success', '');
         sent = true;
         const submit = form.querySelector('button[type="submit"]');
@@ -230,27 +235,73 @@
   // ===== Forms =====
   document.querySelectorAll('#booking-form, #contact-form').forEach(bindAjaxForm);
 
-  // ===== Set min date/time for booking =====
-  const dateInput = document.querySelector('#date');
-  const timeInput = document.querySelector('#time');
+  // ===== Booking date/time picker =====
+  const datetimeDialog = document.querySelector('#datetime-picker');
   const datetimeInput = document.querySelector('#datetime');
-  if (dateInput && timeInput) {
-    const now = new Date();
-    now.setMinutes(now.getMinutes() + 30);
-    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-    dateInput.min = local.toISOString().slice(0, 10);
-    if (!dateInput.value) dateInput.value = local.toISOString().slice(0, 10);
-    if (!timeInput.value) timeInput.value = local.toISOString().slice(11, 16);
+  const pickupDate = document.querySelector('#pickup-date');
+  const pickupTime = document.querySelector('#pickup-time');
+  const pickerApply = document.querySelector('.datetime-picker-apply');
+  const pickerCancel = document.querySelector('.datetime-picker-cancel');
+  const pickerClose = document.querySelector('.datetime-picker-close');
 
-    const syncDateTime = () => {
-      if (datetimeInput) {
-        datetimeInput.value = dateInput.value && timeInput.value ? `${dateInput.value} ${timeInput.value}` : '';
-      }
-    };
+  const formatPickupDate = (value) => {
+    if (!value) return '';
+    const [year, month, day] = value.split('-');
+    return `${day}.${month}.${year}`;
+  };
 
-    dateInput.addEventListener('change', syncDateTime);
-    timeInput.addEventListener('change', syncDateTime);
-    syncDateTime();
+  const setDefaultPickupTime = () => {
+    if (!pickupDate || !pickupTime) return;
+    const next = new Date();
+    next.setMinutes(next.getMinutes() + 30);
+    const local = new Date(next.getTime() - next.getTimezoneOffset() * 60000);
+    const date = local.toISOString().slice(0, 10);
+    const time = local.toISOString().slice(11, 16);
+    pickupDate.min = date;
+    if (!pickupDate.value) pickupDate.value = date;
+    if (!pickupTime.value) pickupTime.value = time;
+  };
+
+  const openDateTimePicker = () => {
+    if (!datetimeDialog || !pickupDate) return;
+    setDefaultPickupTime();
+    if (typeof datetimeDialog.showModal === 'function') {
+      datetimeDialog.showModal();
+    } else {
+      datetimeDialog.setAttribute('open', '');
+    }
+    pickupDate.focus();
+  };
+
+  const closeDateTimePicker = () => {
+    if (!datetimeDialog) return;
+    if (typeof datetimeDialog.close === 'function') {
+      datetimeDialog.close();
+    } else {
+      datetimeDialog.removeAttribute('open');
+    }
+  };
+
+  const applyPickupTime = () => {
+    if (!pickupDate || !pickupTime || !datetimeInput) return;
+    if (!pickupDate.value || !pickupTime.value) return;
+    const value = `${formatPickupDate(pickupDate.value)}, ${pickupTime.value}`;
+    datetimeInput.value = value;
+    datetimeInput.classList.add('has-value');
+    closeDateTimePicker();
+  };
+
+  if (datetimeDialog && datetimeInput && pickupDate && pickupTime) {
+    datetimeInput.addEventListener('click', openDateTimePicker);
+    datetimeInput.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      openDateTimePicker();
+    });
+
+    pickerApply?.addEventListener('click', applyPickupTime);
+    pickerCancel?.addEventListener('click', closeDateTimePicker);
+    pickerClose?.addEventListener('click', closeDateTimePicker);
   }
 
   // ===== Cookie Consent =====
