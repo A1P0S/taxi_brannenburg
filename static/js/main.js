@@ -134,6 +134,9 @@
     new FormData(form).forEach((value, key) => {
       payload[key] = value;
     });
+    if (payload.date && payload.time) {
+      payload.datetime = `${payload.date} ${payload.time}`;
+    }
     return payload;
   };
 
@@ -227,12 +230,27 @@
   // ===== Forms =====
   document.querySelectorAll('#booking-form, #contact-form').forEach(bindAjaxForm);
 
-  // ===== Set min datetime for booking =====
-  const datetimeInput = document.querySelector('input[type="datetime-local"]');
-  if (datetimeInput) {
+  // ===== Set min date/time for booking =====
+  const dateInput = document.querySelector('#date');
+  const timeInput = document.querySelector('#time');
+  const datetimeInput = document.querySelector('#datetime');
+  if (dateInput && timeInput) {
     const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset() + 30);
-    datetimeInput.min = now.toISOString().slice(0, 16);
+    now.setMinutes(now.getMinutes() + 30);
+    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    dateInput.min = local.toISOString().slice(0, 10);
+    if (!dateInput.value) dateInput.value = local.toISOString().slice(0, 10);
+    if (!timeInput.value) timeInput.value = local.toISOString().slice(11, 16);
+
+    const syncDateTime = () => {
+      if (datetimeInput) {
+        datetimeInput.value = dateInput.value && timeInput.value ? `${dateInput.value} ${timeInput.value}` : '';
+      }
+    };
+
+    dateInput.addEventListener('change', syncDateTime);
+    timeInput.addEventListener('change', syncDateTime);
+    syncDateTime();
   }
 
   // ===== Cookie Consent =====

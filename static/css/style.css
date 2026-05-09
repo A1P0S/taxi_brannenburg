@@ -990,8 +990,7 @@ p {
 
 @media (max-width: 600px) {
   .form-group input[type="date"],
-  .form-group input[type="time"],
-  .form-group input[type="datetime-local"] {
+  .form-group input[type="time"] {
     font-size: 0.875rem;
     padding-left: 12px;
     padding-right: 12px;
